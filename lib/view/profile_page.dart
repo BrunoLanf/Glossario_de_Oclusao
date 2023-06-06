@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:projeto/database/database_manager.dart';
+import 'package:projeto/services/auth_service.dart';
 import 'package:projeto/view/login_page.dart';
+import 'package:provider/provider.dart';
 
 import '../components/custom_button_widget.dart';
 
 import '../components/profile_text_field.dart';
+import '../model/user.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -13,9 +17,20 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  TextEditingController namecontroller = TextEditingController();
+  TextEditingController codcontroller = TextEditingController();
+  TextEditingController turmacontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
   bool isLoading = false;
 
-  late final String uid;
+  late final String userid;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    dadosUsuario();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         actions: [
           TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: salvar,
             child: const Text(
               'Salvar',
               style: TextStyle(
@@ -62,32 +75,22 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             const Divider(thickness: 1.5, color: Colors.black),
-            const ProfileTextFieldWiget(
+            ProfileTextFieldWiget(
+              controller: namecontroller,
               labelText: 'Nome',
               placeholder: 'Meu nome',
             ),
-            const ProfileTextFieldWiget(
+            ProfileTextFieldWiget(
+              controller: codcontroller,
               labelText: 'Código',
               placeholder: '123456',
             ),
-            const ProfileTextFieldWiget(
+            ProfileTextFieldWiget(
+              controller: turmacontroller,
               labelText: 'Turma',
               placeholder: '2023/01',
             ),
-            const SizedBox(height: 25),
-            const Center(
-              child: Text(
-                'Senha',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),
-            ),
-            const Divider(thickness: 1.5, color: Colors.black),
-            const ProfileTextFieldWiget(
-              labelText: 'Nova Senha',
-              placeholder: '*************',
-              isPassword: true,
-            ),
-            const SizedBox(height: 110),
+            const SizedBox(height: 140),
             CustomButtonWidget(
               label: 'Sair',
               onTap: () {
@@ -101,5 +104,41 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
+  }
+
+  salvar() async {
+    if (namecontroller.text.isEmpty ||
+        codcontroller.text.isEmpty ||
+        turmacontroller.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Os campos precisam estar preenchidos",
+            style: TextStyle(
+              fontSize: 18,
+              color: Color(0xffE3F2FD),
+            ),
+          ),
+          backgroundColor: Color.fromARGB(255, 59, 19, 150),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } else {
+      await DataBaseManager.setUser(
+              userid,
+              User(namecontroller.text, codcontroller.text,
+                  turmacontroller.text))
+          .then((value) {
+        Navigator.pop(context);
+      });
+    }
+  }
+
+  Future<void> dadosUsuario() async {
+    userid = context.read<AuthService>().usuario!.uid;
+    var user = await DataBaseManager.getUser(userid);
+    namecontroller.text = user.name;
+    codcontroller.text = user.cod;
+    turmacontroller.text = user.turma;
   }
 }

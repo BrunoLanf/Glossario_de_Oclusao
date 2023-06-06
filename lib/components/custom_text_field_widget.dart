@@ -14,6 +14,7 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.isSpecialAllowed = true,
     this.isNonNumericAllowed = true,
     this.isDarkMode = true,
+    required this.controller,
   });
 
   final String title;
@@ -26,6 +27,8 @@ class CustomTextFieldWidget extends StatelessWidget {
   final bool isSpecialAllowed;
   final bool isNonNumericAllowed;
   final bool isDarkMode;
+
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +60,7 @@ class CustomTextFieldWidget extends StatelessWidget {
             ],
           ),
           child: TextFormField(
+            controller: controller,
             minLines: 1,
             maxLines: maxLines,
             decoration: InputDecoration(

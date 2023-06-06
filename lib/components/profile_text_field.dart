@@ -6,11 +6,14 @@ class ProfileTextFieldWiget extends StatefulWidget {
     required this.labelText,
     required this.placeholder,
     this.isPassword = false,
+    required this.controller,
   });
 
   final String labelText;
   final String placeholder;
   final bool isPassword;
+
+  final TextEditingController controller;
 
   @override
   State<ProfileTextFieldWiget> createState() => _ProfileTextFieldWigetState();
@@ -36,6 +39,7 @@ class _ProfileTextFieldWigetState extends State<ProfileTextFieldWiget> {
           const SizedBox(width: 15),
           Expanded(
             child: TextField(
+              controller: widget.controller,
               enabled: enabled,
               obscureText: isPassword,
               decoration: InputDecoration(

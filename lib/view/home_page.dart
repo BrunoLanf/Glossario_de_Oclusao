@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto/view/profile_page.dart';
 
 import '../utils/glossary.dart';
+import 'quiz_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 openSobre();
               },
-              icon: const Icon(Icons.align_horizontal_right_outlined))
+              icon: const Icon(Icons.quiz))
         ],
         backgroundColor: const Color.fromARGB(255, 59, 19, 150),
       ),
@@ -106,11 +107,17 @@ class _HomePageState extends State<HomePage> {
   Future openSobre() => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text("Desenvolvedor:"),
-          content: const Text("Bruno da Costa Lanfredi - 835000"),
+          title: const Text("QUESTIONÁRIO"),
+          content: const Text("Gostaria de começar o questionário?"),
           actions: [
             TextButton(
                 onPressed: submit,
+                child: const Text('Começar',
+                    style: TextStyle(color: Colors.black))),
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 child:
                     const Text('Voltar', style: TextStyle(color: Colors.black)))
           ],
@@ -119,6 +126,7 @@ class _HomePageState extends State<HomePage> {
       );
 
   void submit() {
-    Navigator.of(context).pop();
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const QuizScreen1()));
   }
 }
