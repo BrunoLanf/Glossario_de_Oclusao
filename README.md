@@ -1,16 +1,24 @@
-# projeto
+<h1 align="center">
+    Glossário de Oclusão 
+</h1>
 
-A new Flutter project.
+## Sobre o aplicativo
 
-## Getting Started
+Aplicativo mobile multiplataforma feito em Flutter para fins educacionais voltado para o Ensino de Oclusão Dentária.
 
-This project is a starting point for a Flutter application.
+## Requisitos Funcionais
 
-A few resources to get you started if this is your first Flutter project:
+* Login e Cadastro de usuários
+* Recuperação de senha
+* Busca de termos técnicos
+* Questionários para alunos
+  
+## Preview
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+![login_pages](https://github.com/BrunoLanf/Glossario_de_Oclusao/assets/93202973/f9962da4-b58b-4cc1-a8b7-a35367e878e3)
+![home_pages](https://github.com/BrunoLanf/Glossario_de_Oclusao/assets/93202973/60333d3d-8378-4f2b-b00f-d5a1abb92598)
+![quiz](https://github.com/BrunoLanf/Glossario_de_Oclusao/assets/93202973/ee51b349-1fc2-46fe-85a3-c398e30e56a0)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
